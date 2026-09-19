@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_4-3-1.xsd">
+  <AR-PACKAGES>
+    <AR-PACKAGE>
+      <SHORT-NAME>DoorControlSystem</SHORT-NAME>
+      <AR-PACKAGES>
+        <AR-PACKAGE>
+          <SHORT-NAME>DataTypes</SHORT-NAME>
+          <ELEMENTS>
+            <!-- BASIC DATA TYPES -->
+            <STANDARD-TYPES>
+              <UINT8>
+                <SHORT-NAME>DoorCommandType</SHORT-NAME>
+                <CATEGORY>FIXED_LENGTH</CATEGORY>
+              </UINT8>
+              <UINT16>
+                <SHORT-NAME>DoorPositionType</SHORT-NAME>
+                <CATEGORY>FIXED_LENGTH</CATEGORY>
+                <NATIVE-DECLARATION>uint16 DoorPositionType;</NATIVE-DECLARATION>
+              </UINT16>
+              <UINT8>
+                <SHORT-NAME>DoorStatusType</SHORT-NAME>
+                <CATEGORY>FIXED_LENGTH</CATEGORY>
+                <NATIVE-DECLARATION>uint8 DoorStatusType;</NATIVE-DECLARATION>
+              </UINT8>
+              <UINT8>
+                <SHORT-NAME>DoorErrorType</SHORT-NAME>
+                <CATEGORY>FIXED_LENGTH</CATEGORY>
+                <NATIVE-DECLARATION>uint8 DoorErrorType;</NATIVE-DECLARATION>
+              </UINT8>
+              <UINT16>
+                <SHORT-NAME>SensorPositionType</SHORT-NAME>
+                <CATEGORY>FIXED_LENGTH</CATEGORY>
+                <NATIVE-DECLARATION>uint16 SensorPositionType;</NATIVE-DECLARATION>
+              </UINT16>
+              <UINT16>
+                <SHORT-NAME>CurrentType</SHORT-NAME>
+                <CATEGORY>FIXED_LENGTH</CATEGORY>
+                <NATIVE-DECLARATION>uint16 CurrentType;</NATIVE-DECLARATION>
+              </UINT16>
+              <SINT8>
+                <SHORT-NAME>MotorSpeedType</SHORT-NAME>
+                <CATEGORY>FIXED_LENGTH</CATEGORY>
+                <NATIVE-DECLARATION>sint8 MotorSpeedType;</NATIVE-DECLARATION>
+              </SINT8>
+              <UINT32>
+                <SHORT-NAME>DIDValueType</SHORT-NAME>
+                <CATEGORY>FIXED_LENGTH</CATEGORY>
+                <NATIVE-DECLARATION>uint32 DIDValueType;</NATIVE-DECLARATION>
+              </UINT32>
+            </STANDARD-TYPES>
+            <!-- ENUMERATION TYPES -->
+            <ENUMERATION-TYPE>
+              <SHORT-NAME>DoorStatusEnum</SHORT-NAME>
+              <CATEGORY>FIXED_LENGTH</CATEGORY>
+              <ELEMENT-TYPE-TREF DEST="INTEGER-TYPE">/AUTOSAR/DataTypes/uint8</ELEMENT-TYPE-TREF>
+              <ENUMERATORS>
+                <ENUMERATOR>
+                  <SHORT-NAME>DOOR_IDLE</SHORT-NAME>
+                  <VALUE>0</VALUE>
+                </ENUMERATOR>
+                <ENUMERATOR>
+                  <SHORT-NAME>DOOR_OPENING</SHORT-NAME>
+                  <VALUE>1</VALUE>
+                </ENUMERATOR>
+                <ENUMERATOR>
+                  <SHORT-NAME>DOOR_CLOSING</SHORT-NAME>
+                  <VALUE>2</VALUE>
+                </ENUMERATOR>
+                <ENUMERATOR>
+                  <SHORT-NAME>DOOR_OPEN</SHORT-NAME>
+                  <VALUE>3</VALUE>
+                </ENUMERATOR>
+                <ENUMERATOR>
+                  <SHORT-NAME>DOOR_CLOSED</SHORT-NAME>
+                  <VALUE>4</VALUE>
+                </ENUMERATOR>
+                <ENUMERATOR>
+                  <SHORT-NAME>DOOR_ERROR</SHORT-NAME>
+                  <VALUE>5</VALUE>
+                </ENUMERATOR>
+                <ENUMERATOR>
+                  <SHORT-NAME>DOOR_JAMMED</SHORT-NAME>
+                  <VALUE>6</VALUE>
+                </ENUMERATOR>
+              </ENUMERATORS>
+            </ENUMERATION-TYPE>
+            <ENUMERATION-TYPE>
+              <SHORT-NAME>DoorErrorEnum</SHORT-NAME>
+              <CATEGORY>FIXED_LENGTH</CATEGORY>
+              <ELEMENT-TYPE-TREF DEST="INTEGER-TYPE">/AUTOSAR/DataTypes/uint8</ELEMENT-TYPE-TREF>
+              <ENUMERATORS>
+                <ENUMERATOR>
+                  <SHORT-NAME>NO_ERROR</SHORT-NAME>
+                  <VALUE>0</VALUE>
+                </ENUMERATOR>
+                <ENUMERATOR>
+                  <SHORT-NAME>OVERCURRENT_ERROR</SHORT-NAME>
+                  <VALUE>1</VALUE>
+                </ENUMERATOR>
+                <ENUMERATOR>
+                  <SHORT-NAME>TIMEOUT_ERROR</SHORT-NAME>
+                  <VALUE>2</VALUE>
+                </ENUMERATOR>
+                <ENUMERATOR>
+                  <SHORT-NAME>SENSOR_ERROR</SHORT-NAME>
+                  <VALUE>3</VALUE>
+                </ENUMERATOR>
+                <ENUMERATOR>
+                  <SHORT-NAME>MOTOR_ERROR</SHORT-NAME>
+                  <VALUE>4</VALUE>
+                </ENUMERATOR>
+                <ENUMERATOR>
+                  <SHORT-NAME>CAN_ERROR</SHORT-NAME>
+                  <VALUE>5</VALUE>
+                </ENUMERATOR>
+                <ENUMERATOR>
+                  <SHORT-NAME>FAULT_MEMORY</SHORT-NAME>
+                  <VALUE>6</VALUE>
+                </ENUMERATOR>
+              </ENUMERATORS>
+            </ENUMERATION-TYPE>
+            <ENUMERATION-TYPE>
+              <SHORT-NAME>MotorDirectionEnum</SHORT-NAME>
+              <CATEGORY>FIXED_LENGTH</CATEGORY>
+              <ELEMENT-TYPE-TREF DEST="INTEGER-TYPE">/AUTOSAR/DataTypes/sint8</ELEMENT-TYPE-TREF>
+              <ENUMERATORS>
+                <ENUMERATOR>
+                  <SHORT-NAME>MOTOR_STOP</SHORT-NAME>
+                  <VALUE>0</VALUE>
+                </ENUMERATOR>
+                <ENUMERATOR>
+                  <SHORT-NAME>MOTOR_OPEN</SHORT-NAME>
+                  <VALUE>1</VALUE>
+                </ENUMERATOR>
+                <ENUMERATOR>
+                  <SHORT-NAME>MOTOR_CLOSE</SHORT-NAME>
+                  <VALUE>-1</VALUE>
+                </ENUMERATOR>
+              </ENUMERATORS>
+            </ENUMERATION-TYPE>
+            <!-- STRUCTURE TYPES -->
+            <STRUCTURE-TYPE>
+              <SHORT-NAME>DoorStatusStruct</SHORT-NAME>
+              <CATEGORY>FIXED_LENGTH</CATEGORY>
+              <COMPONENTS>
+                <STRUCTURE-ELEMENT>
+                  <SHORT-NAME>Position</SHORT-NAME>
+                  <TYPE-TREF DEST="UINT16">/DoorControlSystem/DataTypes/DoorPositionType</TYPE-TREF>
+                </STRUCTURE-ELEMENT>
+                <STRUCTURE-ELEMENT>
+                  <SHORT-NAME>Status</SHORT-NAME>
+                  <TYPE-TREF DEST="ENUMERATION-TYPE">/DoorControlSystem/DataTypes/DoorStatusEnum</TYPE-TREF>
+                </STRUCTURE-ELEMENT>
+                <STRUCTURE-ELEMENT>
+                  <SHORT-NAME>Error</SHORT-NAME>
+                  <TYPE-TREF DEST="ENUMERATION-TYPE">/DoorControlSystem/DataTypes/DoorErrorEnum</TYPE-TREF>
+                </STRUCTURE-ELEMENT>
+                <STRUCTURE-ELEMENT>
+                  <SHORT-NAME>MotorCurrent</SHORT-NAME>
+                  <TYPE-TREF DEST="UINT16">/DoorControlSystem/DataTypes/CurrentType</TYPE-TREF>
+                </STRUCTURE-ELEMENT>
+              </COMPONENTS>
+            </STRUCTURE-TYPE>
+            <STRUCTURE-TYPE>
+              <SHORT-NAME>DiagnosticDataStruct</SHORT-NAME>
+              <CATEGORY>FIXED_LENGTH</CATEGORY>
+              <COMPONENTS>
+                <STRUCTURE-ELEMENT>
+                  <SHORT-NAME>DIDIdentifier</SHORT-NAME>
+                  <TYPE-TREF DEST="UINT16">/AUTOSAR/DataTypes/uint16</TYPE-TREF>
+                </STRUCTURE-ELEMENT>
+                <STRUCTURE-ELEMENT>
+                  <SHORT-NAME>DIDValue</SHORT-NAME>
+                  <TYPE-TREF DEST="UINT32">/DoorControlSystem/DataTypes/DIDValueType</TYPE-TREF>
+                </STRUCTURE-ELEMENT>
+                <STRUCTURE-ELEMENT>
+                  <SHORT-NAME>DIDLength</SHORT-NAME>
+                  <TYPE-TREF DEST="UINT8">/AUTOSAR/DataTypes/uint8</TYPE-TREF>
+                </STRUCTURE-ELEMENT>
+              </COMPONENTS>
+            </STRUCTURE-TYPE>
+            <!-- ARRAY TYPES -->
+            <ARRAY-TYPE>
+              <SHORT-NAME>DiagnosticErrorMemory</SHORT-NAME>
+              <CATEGORY>FIXED_LENGTH</CATEGORY>
+              <ELEMENT-TYPE-TREF DEST="ENUMERATION-TYPE">/DoorControlSystem/DataTypes/DoorErrorEnum</ELEMENT-TYPE-TREF>
+              <MAX-NUMBER-OF-ELEMENTS>10</MAX-NUMBER-OF-ELEMENTS>
+            </ARRAY-TYPE>
+            <ARRAY-TYPE>
+              <SHORT-NAME>MotorCurrentHistory</SHORT-NAME>
+              <CATEGORY>FIXED_LENGTH</CATEGORY>
+              <ELEMENT-TYPE-TREF DEST="UINT16">/DoorControlSystem/DataTypes/CurrentType</ELEMENT-TYPE-TREF>
+              <MAX-NUMBER-OF-ELEMENTS>20</MAX-NUMBER-OF-ELEMENTS>
+            </ARRAY-TYPE>
+            <!-- SCALING INFO -->
+            <COMPUMETHOD>
+              <SHORT-NAME>DoorPosition_CompuMethod</SHORT-NAME>
+              <CATEGORY>SCALING</CATEGORY>
+              <UNIT-REF DEST="UNIT">/DoorControlSystem/Units/Percent</UNIT-REF>
+              <COMPU-SCALES>
+                <COMPU-SCALE>
+                  <LOWER-LIMIT>0</LOWER-LIMIT>
+                  <UPPER-LIMIT>10000</UPPER-LIMIT>
+                  <COMPU-RATIONAL-SCALING>
+                    <COMPU-NUMERATOR-COEFFICIENTS>
+                      <V>0</V>
+                      <V>0.01</V>
+                    </COMPU-NUMERATOR-COEFFICIENTS>
+                  </COMPU-RATIONAL-SCALING>
+                </COMPU-SCALE>
+              </COMPU-SCALES>
+            </COMPUMETHOD>
+            <COMPUMETHOD>
+              <SHORT-NAME>MotorCurrent_CompuMethod</SHORT-NAME>
+              <CATEGORY>SCALING</CATEGORY>
+              <UNIT-REF DEST="UNIT">/DoorControlSystem/Units/Milliamp</UNIT-REF>
+              <COMPU-SCALES>
+                <COMPU-SCALE>
+                  <LOWER-LIMIT>0</LOWER-LIMIT>
+                  <UPPER-LIMIT>5000</UPPER-LIMIT>
+                  <COMPU-RATIONAL-SCALING>
+                    <COMPU-NUMERATOR-COEFFICIENTS>
+                      <V>0</V>
+                      <V>1</V>
+                    </COMPU-NUMERATOR-COEFFICIENTS>
+                  </COMPU-RATIONAL-SCALING>
+                </COMPU-SCALE>
+              </COMPU-SCALES>
+            </COMPUMETHOD>
+          </ELEMENTS>
+        </AR-PACKAGE>
+        <AR-PACKAGE>
+          <SHORT-NAME>Units</SHORT-NAME>
+          <ELEMENTS>
+            <UNIT>
+              <SHORT-NAME>Percent</SHORT-NAME>
+              <DISPLAY-RADIX>DECIMAL</DISPLAY-RADIX>
+              <PHYSICAL-UNIT>%</PHYSICAL-UNIT>
+            </UNIT>
+            <UNIT>
+              <SHORT-NAME>Milliamp</SHORT-NAME>
+              <DISPLAY-RADIX>DECIMAL</DISPLAY-RADIX>
+              <PHYSICAL-UNIT>mA</PHYSICAL-UNIT>
+            </UNIT>
+            <UNIT>
+              <SHORT-NAME>Millisecond</SHORT-NAME>
+              <DISPLAY-RADIX>DECIMAL</DISPLAY-RADIX>
+              <PHYSICAL-UNIT>ms</PHYSICAL-UNIT>
+            </UNIT>
+          </ELEMENTS>
+        </AR-PACKAGE>
+      </AR-PACKAGES>
+    </AR-PACKAGE>
+  </AR-PACKAGES>
+</AUTOSAR>

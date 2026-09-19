@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_4-3-1.xsd">
+  <AR-PACKAGES>
+    <AR-PACKAGE>
+      <SHORT-NAME>DoorControlSystem</SHORT-NAME>
+      <AR-PACKAGES>
+        <AR-PACKAGE>
+          <SHORT-NAME>Diagnostics</SHORT-NAME>
+          <ELEMENTS>
+            <!-- DIAGNOSTIC PROTOCOL CONFIGURATION (UDS) -->
+            <DIAG-PROTOCOL>
+              <SHORT-NAME>UDS_Protocol</SHORT-NAME>
+              <PROTOCOL-TYPE>UDS</PROTOCOL-TYPE>
+              <UDS-CONFIGURATION>
+                <UDS-SERVICES>
+                  <!-- SERVICE 0x22: READ DATA BY IDENTIFIER -->
+                  <UDS-SERVICE>
+                    <SHORT-NAME>ReadDID_Service</SHORT-NAME>
+                    <SERVICE-ID>0x22</SERVICE-ID>
+                    <SERVICE-NAME>ReadDataByIdentifier</SERVICE-NAME>
+                    <DESCRIPTION>Read values of one or more DIDs</DESCRIPTION>
+                    <REQUEST-LENGTH>3</REQUEST-LENGTH>
+                    <RESPONSE-LENGTH>255</RESPONSE-LENGTH>
+                    <DID-ELEMENTS>
+                      <DID-ELEMENT>
+                        <SHORT-NAME>DoorStatus_DID</SHORT-NAME>
+                        <DID-IDENTIFIER>0xF190</DID-IDENTIFIER>
+                        <DID-DATA-LENGTH>2</DID-DATA-LENGTH>
+                        <DATA-ELEMENTS>
+                          <DID-DATA>
+                            <SHORT-NAME>DoorPosition</SHORT-NAME>
+                            <DATA-TYPE>uint16</DATA-TYPE>
+                            <BYTE-POSITION>0</BYTE-POSITION>
+                          </DID-DATA>
+                        </DATA-ELEMENTS>
+                        <ACCESS-PERMISSION>READ_ONLY</ACCESS-PERMISSION>
+                        <UPDATE-PERIOD>100</UPDATE-PERIOD>
+                      </DID-ELEMENT>
+                      <DID-ELEMENT>
+                        <SHORT-NAME>DoorMotorCurrent_DID</SHORT-NAME>
+                        <DID-IDENTIFIER>0xF191</DID-IDENTIFIER>
+                        <DID-DATA-LENGTH>2</DID-DATA-LENGTH>
+                        <DATA-ELEMENTS>
+                          <DID-DATA>
+                            <SHORT-NAME>MotorCurrent</SHORT-NAME>
+                            <DATA-TYPE>uint16</DATA-TYPE>
+                            <BYTE-POSITION>0</BYTE-POSITION>
+                            <UNIT>mA</UNIT>
+                          </DID-DATA>
+                        </DATA-ELEMENTS>
+                        <ACCESS-PERMISSION>READ_ONLY</ACCESS-PERMISSION>
+                        <UPDATE-PERIOD>50</UPDATE-PERIOD>
+                      </DID-ELEMENT>
+                      <DID-ELEMENT>
+                        <SHORT-NAME>DoorState_DID</SHORT-NAME>
+                        <DID-IDENTIFIER>0xF192</DID-IDENTIFIER>
+                        <DID-DATA-LENGTH>1</DID-DATA-LENGTH>
+                        <DATA-ELEMENTS>
+                          <DID-DATA>
+                            <SHORT-NAME>State</SHORT-NAME>
+                            <DATA-TYPE>uint8</DATA-TYPE>
+                            <BYTE-POSITION>0</BYTE-POSITION>
+                          </DID-DATA>
+                        </DATA-ELEMENTS>
+                        <ACCESS-PERMISSION>READ_ONLY</ACCESS-PERMISSION>
+                        <UPDATE-PERIOD>20</UPDATE-PERIOD>
+                      </DID-ELEMENT>
+                      <DID-ELEMENT>
+                        <SHORT-NAME>DoorError_DID</SHORT-NAME>
+                        <DID-IDENTIFIER>0xF193</DID-IDENTIFIER>
+                        <DID-DATA-LENGTH>1</DID-DATA-LENGTH>
+                        <DATA-ELEMENTS>
+                          <DID-DATA>
+                            <SHORT-NAME>ErrorCode</SHORT-NAME>
+                            <DATA-TYPE>uint8</DATA-TYPE>
+                            <BYTE-POSITION>0</BYTE-POSITION>
+                          </DID-DATA>
+                        </DATA-ELEMENTS>
+                        <ACCESS-PERMISSION>READ_ONLY</ACCESS-PERMISSION>
+                        <UPDATE-PERIOD>100</UPDATE-PERIOD>
+                      </DID-ELEMENT>
+                      <DID-ELEMENT>
+                        <SHORT-NAME>HardwareVersion_DID</SHORT-NAME>
+                        <DID-IDENTIFIER>0xF180</DID-IDENTIFIER>
+                        <DID-DATA-LENGTH>4</DID-DATA-LENGTH>
+                        <DATA-ELEMENTS>
+                          <DID-DATA>
+                            <SHORT-NAME>Version</SHORT-NAME>
+                            <DATA-TYPE>uint32</DATA-TYPE>
+                            <BYTE-POSITION>0</BYTE-POSITION>
+                          </DID-DATA>
+                        </DATA-ELEMENTS>
+                        <ACCESS-PERMISSION>READ_ONLY</ACCESS-PERMISSION>
+                        <UPDATE-PERIOD>0</UPDATE-PERIOD>
+                      </DID-ELEMENT>
+                      <DID-ELEMENT>
+                        <SHORT-NAME>SoftwareVersion_DID</SHORT-NAME>
+                        <DID-IDENTIFIER>0xF181</DID-IDENTIFIER>
+                        <DID-DATA-LENGTH>4</DID-DATA-LENGTH>
+                        <DATA-ELEMENTS>
+                          <DID-DATA>
+                            <SHORT-NAME>SWVersion</SHORT-NAME>
+                            <DATA-TYPE>uint32</DATA-TYPE>
+                            <BYTE-POSITION>0</BYTE-POSITION>
+                          </DID-DATA>
+                        </DATA-ELEMENTS>
+                        <ACCESS-PERMISSION>READ_ONLY</ACCESS-PERMISSION>
+                        <UPDATE-PERIOD>0</UPDATE-PERIOD>
+                      </DID-ELEMENT>
+                    </DID-ELEMENTS>
+                  </UDS-SERVICE>
+                  <!-- SERVICE 0x31: ROUTINE CONTROL -->
+                  <UDS-SERVICE>
+                    <SHORT-NAME>RoutineControl_Service</SHORT-NAME>
+                    <SERVICE-ID>0x31</SERVICE-ID>
+                    <SERVICE-NAME>RoutineControl</SERVICE-NAME>
+                    <DESCRIPTION>Performs a routine identified by routine identifier</DESCRIPTION>
+                    <REQUEST-LENGTH>4</REQUEST-LENGTH>
+                    <RESPONSE-LENGTH>10</RESPONSE-LENGTH>
+                    <ROUTINE-CONTROLS>
+                      <ROUTINE-CONTROL>
+                        <SHORT-NAME>DoorSelfTest_Routine</SHORT-NAME>
+                        <ROUTINE-IDENTIFIER>0x0001</ROUTINE-IDENTIFIER>
+                        <ROUTINE-NAME>Door Self Test</ROUTINE-NAME>
+                        <ROUTINE-TYPE>SELF_TEST</ROUTINE-TYPE>
+                        <ROUTINE-DESCRIPTION>Performs self-test of door mechanism</ROUTINE-DESCRIPTION>
+                        <ROUTINE-OPTIONS>
+                          <OPTION>
+                            <SHORT-NAME>MotorTest</SHORT-NAME>
+                            <VALUE>0x01</VALUE>
+                            <DESCRIPTION>Test motor movement</DESCRIPTION>
+                          </OPTION>
+                          <OPTION>
+                            <SHORT-NAME>SensorTest</SHORT-NAME>
+                            <VALUE>0x02</VALUE>
+                            <DESCRIPTION>Test position sensor</DESCRIPTION>
+                          </OPTION>
+                          <OPTION>
+                            <SHORT-NAME>FullTest</SHORT-NAME>
+                            <VALUE>0x03</VALUE>
+                            <DESCRIPTION>Full system test</DESCRIPTION>
+                          </OPTION>
+                        </ROUTINE-OPTIONS>
+                        <EXPECTED-DURATION>3000</EXPECTED-DURATION>
+                        <RESULT-PARAMETERS>
+                          <RESULT-PARAMETER>
+                            <SHORT-NAME>TestResult</SHORT-NAME>
+                            <DATA-TYPE>uint8</DATA-TYPE>
+                            <DESCRIPTION>0=PASS, 1=FAIL</DESCRIPTION>
+                          </RESULT-PARAMETER>
+                          <RESULT-PARAMETER>
+                            <SHORT-NAME>ErrorCode</SHORT-NAME>
+                            <DATA-TYPE>uint8</DATA-TYPE>
+                            <DESCRIPTION>Error details if failed</DESCRIPTION>
+                          </RESULT-PARAMETER>
+                        </RESULT-PARAMETERS>
+                      </ROUTINE-CONTROL>
+                      <ROUTINE-CONTROL>
+                        <SHORT-NAME>DoorFullCycle_Routine</SHORT-NAME>
+                        <ROUTINE-IDENTIFIER>0x0002</ROUTINE-IDENTIFIER>
+                        <ROUTINE-NAME>Door Full Cycle</ROUTINE-NAME>
+                        <ROUTINE-TYPE>MAINTENANCE</ROUTINE-TYPE>
+                        <ROUTINE-DESCRIPTION>Open and close door fully</ROUTINE-DESCRIPTION>
+                        <EXPECTED-DURATION>5000</EXPECTED-DURATION>
+                        <RESULT-PARAMETERS>
+                          <RESULT-PARAMETER>
+                            <SHORT-NAME>CycleStatus</SHORT-NAME>
+                            <DATA-TYPE>uint8</DATA-TYPE>
+                            <DESCRIPTION>0=SUCCESS, 1=TIMEOUT, 2=JAMMED</DESCRIPTION>
+                          </RESULT-PARAMETER>
+                        </RESULT-PARAMETERS>
+                      </ROUTINE-CONTROL>
+                      <ROUTINE-CONTROL>
+                        <SHORT-NAME>CalibrateSensor_Routine</SHORT-NAME>
+                        <ROUTINE-IDENTIFIER>0x0003</ROUTINE-IDENTIFIER>
+                        <ROUTINE-NAME>Calibrate Position Sensor</ROUTINE-NAME>
+                        <ROUTINE-TYPE>CALIBRATION</ROUTINE-TYPE>
+                        <ROUTINE-DESCRIPTION>Calibrate sensor 0-100%</ROUTINE-DESCRIPTION>
+                        <EXPECTED-DURATION>2000</EXPECTED-DURATION>
+                        <RESULT-PARAMETERS>
+                          <RESULT-PARAMETER>
+                            <SHORT-NAME>CalibrationStatus</SHORT-NAME>
+                            <DATA-TYPE>uint8</DATA-TYPE>
+                          </RESULT-PARAMETER>
+                        </RESULT-PARAMETERS>
+                      </ROUTINE-CONTROL>
+                    </ROUTINE-CONTROLS>
+                  </UDS-SERVICE>
+                  <!-- SERVICE 0x19: READ DTC INFORMATION -->
+                  <UDS-SERVICE>
+                    <SHORT-NAME>ReadDTC_Service</SHORT-NAME>
+                    <SERVICE-ID>0x19</SERVICE-ID>
+                    <SERVICE-NAME>ReadDTCInformation</SERVICE-NAME>
+                    <DESCRIPTION>Read Diagnostic Trouble Code information</DESCRIPTION>
+                    <SUB-FUNCTIONS>
+                      <SUB-FUNCTION>
+                        <SHORT-NAME>ReportNumberOfDTC</SHORT-NAME>
+                        <SUB-FUNCTION-ID>0x01</SUB-FUNCTION-ID>
+                      </SUB-FUNCTION>
+                      <SUB-FUNCTION>
+                        <SHORT-NAME>ReportDTCByStatusMask</SHORT-NAME>
+                        <SUB-FUNCTION-ID>0x02</SUB-FUNCTION-ID>
+                      </SUB-FUNCTION>
+                      <SUB-FUNCTION>
+                        <SHORT-NAME>ReportDTCSnapshotRecord</SHORT-NAME>
+                        <SUB-FUNCTION-ID>0x04</SUB-FUNCTION-ID>
+                      </SUB-FUNCTION>
+                      <SUB-FUNCTION>
+                        <SHORT-NAME>ReportDTCExtendedRecord</SHORT-NAME>
+                        <SUB-FUNCTION-ID>0x06</SUB-FUNCTION-ID>
+                      </SUB-FUNCTION>
+                    </SUB-FUNCTIONS>
+                    <DTC-DEFINITIONS>
+                      <DTC-DEFINITION>
+                        <SHORT-NAME>OvercurrentError</SHORT-NAME>
+                        <DTC-CODE>0xC10001</DTC-CODE>
+                        <DTC-NAME>Motor Overcurrent</DTC-NAME>
+                        <DTC-SEVERITY>ERROR</DTC-SEVERITY>
+                        <DTC-DESCRIPTION>Motor current exceeds threshold</DTC-DESCRIPTION>
+                      </DTC-DEFINITION>
+                      <DTC-DEFINITION>
+                        <SHORT-NAME>TimeoutError</SHORT-NAME>
+                        <DTC-CODE>0xC10002</DTC-CODE>
+                        <DTC-NAME>Door Movement Timeout</DTC-NAME>
+                        <DTC-SEVERITY>ERROR</DTC-SEVERITY>
+                        <DTC-DESCRIPTION>Door did not reach target position</DTC-DESCRIPTION>
+                      </DTC-DEFINITION>
+                      <DTC-DEFINITION>
+                        <SHORT-NAME>SensorError</SHORT-NAME>
+                        <DTC-CODE>0xC10003</DTC-CODE>
+                        <DTC-NAME>Position Sensor Fault</DTC-NAME>
+                        <DTC-SEVERITY>ERROR</DTC-SEVERITY>
+                        <DTC-DESCRIPTION>Position sensor reading invalid</DTC-DESCRIPTION>
+                      </DTC-DEFINITION>
+                      <DTC-DEFINITION>
+                        <SHORT-NAME>MotorError</SHORT-NAME>
+                        <DTC-CODE>0xC10004</DTC-CODE>
+                        <DTC-NAME>Motor Driver Fault</DTC-NAME>
+                        <DTC-SEVERITY>ERROR</DTC-SEVERITY>
+                        <DTC-DESCRIPTION>Motor driver communication error</DTC-DESCRIPTION>
+                      </DTC-DEFINITION>
+                      <DTC-DEFINITION>
+                        <SHORT-NAME>JAMError</SHORT-NAME>
+                        <DTC-CODE>0xC10005</DTC-CODE>
+                        <DTC-NAME>Door Jam Detected</DTC-NAME>
+                        <DTC-SEVERITY>WARNING</DTC-SEVERITY>
+                        <DTC-DESCRIPTION>Door movement obstructed</DTC-DESCRIPTION>
+                      </DTC-DEFINITION>
+                    </DTC-DEFINITIONS>
+                  </UDS-SERVICE>
+                  <!-- SERVICE 0x14: CLEAR DIAGNOSTIC INFORMATION -->
+                  <UDS-SERVICE>
+                    <SHORT-NAME>ClearDID_Service</SHORT-NAME>
+                    <SERVICE-ID>0x14</SERVICE-ID>
+                    <SERVICE-NAME>ClearDiagnosticInformation</SERVICE-NAME>
+                    <DESCRIPTION>Clear diagnostic fault memory</DESCRIPTION>
+                    <REQUEST-LENGTH>4</REQUEST-LENGTH>
+                    <RESPONSE-LENGTH>2</RESPONSE-LENGTH>
+                    <CLEAR-MEMORY-ACCESS>
+                      <MEMORY-RANGE>
+                        <SHORT-NAME>FaultMemoryRange</SHORT-NAME>
+                        <START-ADDRESS>0xC10001</START-ADDRESS>
+                        <END-ADDRESS>0xC10005</END-ADDRESS>
+                        <CLEARABLE>true</CLEARABLE>
+                      </MEMORY-RANGE>
+                    </CLEAR-MEMORY-ACCESS>
+                  </UDS-SERVICE>
+                </UDS-SERVICES>
+              </UDS-CONFIGURATION>
+            </DIAG-PROTOCOL>
+          </ELEMENTS>
+          <AR-PACKAGES>
+            <AR-PACKAGE>
+              <SHORT-NAME>DiagnosticDataElements</SHORT-NAME>
+              <ELEMENTS>
+                <!-- DATA IDENTIFIER MAPPINGS -->
+                <DATA-IDENTIFIER-SET>
+                  <SHORT-NAME>DoorSystem_DIDs</SHORT-NAME>
+                  <DATA-IDENTIFIERS>
+                    <DATA-IDENTIFIER>
+                      <SHORT-NAME>DoorPosition_DataID</SHORT-NAME>
+                      <IDENTIFIER>0xF190</IDENTIFIER>
+                      <DATA-TYPE-REF DEST="UINT16">/DoorControlSystem/DataTypes/DoorPositionType</DATA-TYPE-REF>
+                      <READ-ONLY>true</READ-ONLY>
+                    </DATA-IDENTIFIER>
+                    <DATA-IDENTIFIER>
+                      <SHORT-NAME>MotorCurrent_DataID</SHORT-NAME>
+                      <IDENTIFIER>0xF191</IDENTIFIER>
+                      <DATA-TYPE-REF DEST="UINT16">/DoorControlSystem/DataTypes/CurrentType</DATA-TYPE-REF>
+                      <READ-ONLY>true</READ-ONLY>
+                    </DATA-IDENTIFIER>
+                    <DATA-IDENTIFIER>
+                      <SHORT-NAME>DoorState_DataID</SHORT-NAME>
+                      <IDENTIFIER>0xF192</IDENTIFIER>
+                      <DATA-TYPE-REF DEST="UINT8">/DoorControlSystem/DataTypes/DoorStatusType</DATA-TYPE-REF>
+                      <READ-ONLY>true</READ-ONLY>
+                    </DATA-IDENTIFIER>
+                    <DATA-IDENTIFIER>
+                      <SHORT-NAME>DoorError_DataID</SHORT-NAME>
+                      <IDENTIFIER>0xF193</IDENTIFIER>
+                      <DATA-TYPE-REF DEST="UINT8">/DoorControlSystem/DataTypes/DoorErrorType</DATA-TYPE-REF>
+                      <READ-ONLY>true</READ-ONLY>
+                    </DATA-IDENTIFIER>
+                    <DATA-IDENTIFIER>
+                      <SHORT-NAME>HardwareVersion_DataID</SHORT-NAME>
+                      <IDENTIFIER>0xF180</IDENTIFIER>
+                      <DATA-TYPE-REF DEST="UINT32">/DoorControlSystem/DataTypes/DIDValueType</DATA-TYPE-REF>
+                      <READ-ONLY>true</READ-ONLY>
+                    </DATA-IDENTIFIER>
+                    <DATA-IDENTIFIER>
+                      <SHORT-NAME>SoftwareVersion_DataID</SHORT-NAME>
+                      <IDENTIFIER>0xF181</IDENTIFIER>
+                      <DATA-TYPE-REF DEST="UINT32">/DoorControlSystem/DataTypes/DIDValueType</DATA-TYPE-REF>
+                      <READ-ONLY>true</READ-ONLY>
+                    </DATA-IDENTIFIER>
+                  </DATA-IDENTIFIERS>
+                </DATA-IDENTIFIER-SET>
+              </ELEMENTS>
+            </AR-PACKAGE>
+          </AR-PACKAGES>
+        </AR-PACKAGE>
+      </AR-PACKAGES>
+    </AR-PACKAGE>
+  </AR-PACKAGES>
+</AUTOSAR>

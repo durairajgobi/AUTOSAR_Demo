@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_4-3-1.xsd">
+  <AR-PACKAGES>
+    <AR-PACKAGE>
+      <SHORT-NAME>DoorControlECU</SHORT-NAME>
+      <ELEMENTS>
+        <ECU-INSTANCE>
+          <SHORT-NAME>DoorControlECU</SHORT-NAME>
+          <EMBEDDED-SW-COMPOSITION-REF DEST="SWC-COMPOSITION">/DoorControlSystem/SoftwareComposition/DoorControlComposition</EMBEDDED-SW-COMPOSITION-REF>
+          <ECUEXTRACT-VERSION>1.0</ECUEXTRACT-VERSION>
+          <ECU-MAPPING-SET-ELEMENT>
+            <SHORT-NAME>DoorControlMapping</SHORT-NAME>
+          </ECU-MAPPING-SET-ELEMENT>
+          <CONNECTORS>
+            <CAN-COMMUNICATION-CONNECTOR>
+              <SHORT-NAME>CAN_Connector</SHORT-NAME>
+              <COMM-CONTROLLER-MAPPING>
+                <SHORT-NAME>CAN_Controller_Mapping</SHORT-NAME>
+                <COMM-CONTROLLER-REF DEST="CAN-COMMUNICATION-CONTROLLER">/DoorControlECU/EcuHardware/CanController</COMM-CONTROLLER-REF>
+                <PHYSICAL-CHANNEL-REF DEST="CAN-PHYSICAL-CHANNEL">/DoorControlSystem/CAN_Network/CAN_Cluster/CAN_Channel</PHYSICAL-CHANNEL-REF>
+              </COMM-CONTROLLER-MAPPING>
+              <ECU-COMM-PORT-INSTANCES/>
+            </CAN-COMMUNICATION-CONNECTOR>
+          </CONNECTORS>
+          <COMM-CONTROLLERS>
+            <CAN-COMMUNICATION-CONTROLLER>
+              <SHORT-NAME>CanController</SHORT-NAME>
+              <CONTROLLER-ID>0</CONTROLLER-ID>
+              <DEVICE-TYPE>CAN</DEVICE-TYPE>
+              <CAN-IF-CONFIG>
+                <CAN-CLUSTER-CONFIG>
+                  <CAN-CLUSTER-REF DEST="CAN-CLUSTER">/DoorControlSystem/CAN_Network/CAN_Cluster</CAN-CLUSTER-REF>
+                  <BAUDRATE>500000</BAUDRATE>
+                </CAN-CLUSTER-CONFIG>
+              </CAN-IF-CONFIG>
+            </CAN-COMMUNICATION-CONTROLLER>
+          </COMM-CONTROLLERS>
+          <PDU-ROUTING-SPECIFICATION>
+            <PDU-ROUTING-RULE-SET>
+              <SHORT-NAME>DoorCommandRoutingRules</SHORT-NAME>
+              <PDU-ROUTING-RULES>
+                <PDU-ROUTING-RULE>
+                  <SHORT-NAME>DoorCommand_RoutingRule</SHORT-NAME>
+                  <DESTINATION-PDU-PORT-REFS/>
+                  <SOURCE-PDU-PORT-REFS/>
+                  <PDU-PORT-REF DEST="I-PDU">/DoorControlSystem/Communication/DoorCommand_PDU</PDU-PORT-REF>
+                </PDU-ROUTING-RULE>
+                <PDU-ROUTING-RULE>
+                  <SHORT-NAME>DoorStatus_RoutingRule</SHORT-NAME>
+                  <DESTINATION-PDU-PORT-REFS/>
+                  <SOURCE-PDU-PORT-REFS/>
+                  <PDU-PORT-REF DEST="I-PDU">/DoorControlSystem/Communication/DoorStatus_PDU</PDU-PORT-REF>
+                </PDU-ROUTING-RULE>
+              </PDU-ROUTING-RULES>
+            </PDU-ROUTING-RULE-SET>
+          </PDU-ROUTING-SPECIFICATION>
+        </ECU-INSTANCE>
+      </ELEMENTS>
+      <AR-PACKAGES>
+        <AR-PACKAGE>
+          <SHORT-NAME>EcuHardware</SHORT-NAME>
+          <ELEMENTS>
+            <!-- HARDWARE ELEMENTS -->
+            <HARDWARE-ELEMENT>
+              <SHORT-NAME>Microcontroller_STM32</SHORT-NAME>
+              <HARDWARE-TYPE>MICROCONTROLLER</HARDWARE-TYPE>
+            </HARDWARE-ELEMENT>
+            <HARDWARE-ELEMENT>
+              <SHORT-NAME>CanTransceiver_TJA1040</SHORT-NAME>
+              <HARDWARE-TYPE>CAN_TRANSCEIVER</HARDWARE-TYPE>
+            </HARDWARE-ELEMENT>
+            <HARDWARE-ELEMENT>
+              <SHORT-NAME>MotorDriver_DRV88</SHORT-NAME>
+              <HARDWARE-TYPE>MOTOR_DRIVER</HARDWARE-TYPE>
+            </HARDWARE-ELEMENT>
+            <HARDWARE-ELEMENT>
+              <SHORT-NAME>PositionSensor_ADC</SHORT-NAME>
+              <HARDWARE-TYPE>SENSOR</HARDWARE-TYPE>
+            </HARDWARE-ELEMENT>
+            <!-- I/O CONFIGURATION -->
+            <IO-HW-ABSTRACTION>
+              <SHORT-NAME>MotorControl_IO</SHORT-NAME>
+              <CATEGORY>DIGITAL_OUTPUT</CATEGORY>
+              <IO-PORT-NAME>GPIO_PA0</IO-PORT-NAME>
+            </IO-HW-ABSTRACTION>
+            <IO-HW-ABSTRACTION>
+              <SHORT-NAME>MotorDirection_IO</SHORT-NAME>
+              <CATEGORY>DIGITAL_OUTPUT</CATEGORY>
+              <IO-PORT-NAME>GPIO_PA1</IO-PORT-NAME>
+            </IO-HW-ABSTRACTION>
+            <IO-HW-ABSTRACTION>
+              <SHORT-NAME>PositionSensor_IO</SHORT-NAME>
+              <CATEGORY>ANALOG_INPUT</CATEGORY>
+              <IO-PORT-NAME>ADC1_CH0</IO-PORT-NAME>
+            </IO-HW-ABSTRACTION>
+            <IO-HW-ABSTRACTION>
+              <SHORT-NAME>CurrentSensor_IO</SHORT-NAME>
+              <CATEGORY>ANALOG_INPUT</CATEGORY>
+              <IO-PORT-NAME>ADC1_CH1</IO-PORT-NAME>
+            </IO-HW-ABSTRACTION>
+          </ELEMENTS>
+        </AR-PACKAGE>
+        <AR-PACKAGE>
+          <SHORT-NAME>SoftwareComposition</SHORT-NAME>
+          <ELEMENTS>
+            <SWC-COMPOSITION>
+              <SHORT-NAME>DoorControlComposition</SHORT-NAME>
+              <COMPONENTS>
+                <SW-COMPONENT-PROTOTYPE>
+                  <SHORT-NAME>DoorControlComp</SHORT-NAME>
+                  <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/DoorControlSystem/ComponentTypes/DoorControlSWC</TYPE-TREF>
+                </SW-COMPONENT-PROTOTYPE>
+                <SW-COMPONENT-PROTOTYPE>
+                  <SHORT-NAME>DiagnosticsComp</SHORT-NAME>
+                  <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/DoorControlSystem/ComponentTypes/DiagnosticsSWC</TYPE-TREF>
+                </SW-COMPONENT-PROTOTYPE>
+              </COMPONENTS>
+              <CONNECTORS>
+                <ASSEMBLY-SW-CONNECTOR>
+                  <SHORT-NAME>DoorStatus_Connector</SHORT-NAME>
+                  <PROVIDER-IREF>
+                    <COMPONENT-PROTOTYPE-REF DEST="SW-COMPONENT-PROTOTYPE">/DoorControlECU/SoftwareComposition/DoorControlComposition/DoorControlComp</COMPONENT-PROTOTYPE-REF>
+                    <PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/DoorControlSystem/ComponentTypes/DoorControlSWC/DoorStatus_Out</PORT-PROTOTYPE-REF>
+                  </PROVIDER-IREF>
+                  <REQUESTER-IREF>
+                    <COMPONENT-PROTOTYPE-REF DEST="SW-COMPONENT-PROTOTYPE">/DoorControlECU/SoftwareComposition/DoorControlComposition/DiagnosticsComp</COMPONENT-PROTOTYPE-REF>
+                    <PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/DoorControlSystem/ComponentTypes/DiagnosticsSWC/DoorStatus_In</PORT-PROTOTYPE-REF>
+                  </REQUESTER-IREF>
+                </ASSEMBLY-SW-CONNECTOR>
+              </CONNECTORS>
+            </SWC-COMPOSITION>
+          </ELEMENTS>
+        </AR-PACKAGE>
+        <AR-PACKAGE>
+          <SHORT-NAME>RTE</SHORT-NAME>
+          <ELEMENTS>
+            <!-- RTE CONFIGURATION -->
+            <RTE-CONFIGURATION>
+              <SHORT-NAME>RTE_Config</SHORT-NAME>
+              <RTE-MANAGED-TIMING>
+                <TIMING-EVENT>
+                  <SHORT-NAME>DoorControl_10ms</SHORT-NAME>
+                  <PERIOD>0.01</PERIOD>
+                </TIMING-EVENT>
+                <TIMING-EVENT>
+                  <SHORT-NAME>Diagnostics_50ms</SHORT-NAME>
+                  <PERIOD>0.05</PERIOD>
+                </TIMING-EVENT>
+              </RTE-MANAGED-TIMING>
+            </RTE-CONFIGURATION>
+          </ELEMENTS>
+        </AR-PACKAGE>
+        <AR-PACKAGE>
+          <SHORT-NAME>COM</SHORT-NAME>
+          <ELEMENTS>
+            <!-- COM CONFIGURATION -->
+            <COM-CONFIGURATION>
+              <SHORT-NAME>COM_Config</SHORT-NAME>
+              <COM-I-PDU-GROUPS>
+                <COM-I-PDU-GROUP>
+                  <SHORT-NAME>DoorCommand_Group</SHORT-NAME>
+                  <COM-I-PDU-REFS>
+                    <COM-I-PDU-REF DEST="I-PDU">/DoorControlSystem/Communication/DoorCommand_PDU</COM-I-PDU-REF>
+                  </COM-I-PDU-REFS>
+                </COM-I-PDU-GROUP>
+                <COM-I-PDU-GROUP>
+                  <SHORT-NAME>DoorStatus_Group</SHORT-NAME>
+                  <COM-I-PDU-REFS>
+                    <COM-I-PDU-REF DEST="I-PDU">/DoorControlSystem/Communication/DoorStatus_PDU</COM-I-PDU-REF>
+                  </COM-I-PDU-REFS>
+                </COM-I-PDU-GROUP>
+              </COM-I-PDU-GROUPS>
+              <COM-SIGNAL-PROCESSING>
+                <COM-SIGNAL-ROUTE>
+                  <SHORT-NAME>DoorOpenCmd_Route</SHORT-NAME>
+                  <SIGNAL-REF DEST="I-SIGNAL">/DoorControlSystem/Communication/Signals/DoorOpenCmd_Signal</SIGNAL-REF>
+                  <TRIGGER-INTERFACE-MAPPING>
+                    <INTERFACE-MAPPING-SET>
+                      <SHORT-NAME>DoorOpenCmd_Mapping</SHORT-NAME>
+                    </INTERFACE-MAPPING-SET>
+                  </TRIGGER-INTERFACE-MAPPING>
+                </COM-SIGNAL-ROUTE>
+              </COM-SIGNAL-PROCESSING>
+            </COM-CONFIGURATION>
+          </ELEMENTS>
+        </AR-PACKAGE>
+        <AR-PACKAGE>
+          <SHORT-NAME>BSW</SHORT-NAME>
+          <ELEMENTS>
+            <!-- BASIC SOFTWARE CONFIGURATION -->
+            <AUTOSAR>
+              <SHORT-NAME>BSW_Modules</SHORT-NAME>
+            </AUTOSAR>
+          </ELEMENTS>
+        </AR-PACKAGE>
+      </AR-PACKAGES>
+    </AR-PACKAGE>
+  </AR-PACKAGES>
+</AUTOSAR>

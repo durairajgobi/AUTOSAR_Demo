@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_4-3-1.xsd">
+  <AR-PACKAGES>
+    <AR-PACKAGE>
+      <SHORT-NAME>DoorControlSystem</SHORT-NAME>
+      <ELEMENTS>
+        <SYSTEM>
+          <SHORT-NAME>DoorControlSystemModel</SHORT-NAME>
+          <MAPPINGS/>
+          <FIBEX-ELEMENTS>
+            <FIBEX-ELEMENT-REF-CONDITIONAL>
+              <FIBEX-ELEMENT-REF DEST="CAN-CLUSTER">/DoorControlSystem/CAN_Network/CAN_Cluster</FIBEX-ELEMENT-REF>
+            </FIBEX-ELEMENT-REF-CONDITIONAL>
+          </FIBEX-ELEMENTS>
+          <SUB-COMPONENTS>
+            <SYSTEM-MAPPING>
+              <SHORT-NAME>DoorControlECU_Mapping</SHORT-NAME>
+              <DATA-MAPPINGS/>
+              <ENABLE-OUT-OF-ORDER-DELIVERY>false</ENABLE-OUT-OF-ORDER-DELIVERY>
+            </SYSTEM-MAPPING>
+          </SUB-COMPONENTS>
+          <CONNECTORS>
+            <CAN-COMMUNICATION-CONNECTOR>
+              <SHORT-NAME>CAN_Connector</SHORT-NAME>
+              <COMM-CONTROLLER-MAPPING>
+                <SHORT-NAME>CAN_Controller_Mapping</SHORT-NAME>
+                <PHYSICAL-CHANNEL-REF DEST="CAN-PHYSICAL-CHANNEL">/DoorControlSystem/CAN_Network/CAN_Cluster/CAN_Channel</PHYSICAL-CHANNEL-REF>
+              </COMM-CONTROLLER-MAPPING>
+            </CAN-COMMUNICATION-CONNECTOR>
+          </CONNECTORS>
+        </SYSTEM>
+      </ELEMENTS>
+      <AR-PACKAGES>
+        <AR-PACKAGE>
+          <SHORT-NAME>ComponentTypes</SHORT-NAME>
+          <ELEMENTS>
+            <APPLICATION-SW-COMPONENT-TYPE>
+              <SHORT-NAME>DoorControlSWC</SHORT-NAME>
+              <CATEGORY>APPLICATION_COMPONENT</CATEGORY>
+              <PORTS>
+                <P-PORT-PROTOTYPE>
+                  <SHORT-NAME>DoorStatus_Out</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/DoorControlSystem/Interfaces/DoorStatusInterface</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+                <P-PORT-PROTOTYPE>
+                  <SHORT-NAME>MotorControl_Out</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="CLIENT-SERVER-INTERFACE">/DoorControlSystem/Interfaces/MotorControlInterface</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+                <R-PORT-PROTOTYPE>
+                  <SHORT-NAME>DoorCommand_In</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/DoorControlSystem/Interfaces/DoorCommandInterface</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+                <R-PORT-PROTOTYPE>
+                  <SHORT-NAME>DoorSensor_In</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/DoorControlSystem/Interfaces/DoorSensorInterface</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+              </PORTS>
+              <INTERNAL-BEHAVIORS>
+                <SWC-INTERNAL-BEHAVIOR>
+                  <SHORT-NAME>DoorControlBehavior</SHORT-NAME>
+                  <ENABLE-OUT-OF-ORDER-DELIVERY>false</ENABLE-OUT-OF-ORDER-DELIVERY>
+                  <EVENTS>
+                    <TIMING-EVENT>
+                      <SHORT-NAME>DoorControl_TE</SHORT-NAME>
+                      <DISABLE-OUT-OF-ORDER-DELIVERY-SUPPORT>true</DISABLE-OUT-OF-ORDER-DELIVERY-SUPPORT>
+                      <EVENT-CONTROLLED-TIMING>
+                        <NUMBER-OF-REPETITIONS>0</NUMBER-OF-REPETITIONS>
+                        <TIMING-EVENT-PROCESSING>CYCLIC</TIMING-EVENT-PROCESSING>
+                      </EVENT-CONTROLLED-TIMING>
+                      <PERIOD>0.01</PERIOD>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/DoorControlSystem/ComponentTypes/DoorControlSWC/DoorControlBehavior/DoorControl_Runnable</START-ON-EVENT-REF>
+                    </TIMING-EVENT>
+                  </EVENTS>
+                  <RUNNABLES>
+                    <RUNNABLE-ENTITY>
+                      <SHORT-NAME>DoorControl_Runnable</SHORT-NAME>
+                      <CAN-BE-INVOKED-WITHOUT-HOLDING-LOCK>false</CAN-BE-INVOKED-WITHOUT-HOLDING-LOCK>
+                      <DATA-READ-ACCESSS>
+                        <DATA-READ-ACCESS>
+                          <SHORT-NAME>ReadDoorCommand</SHORT-NAME>
+                          <DATA-ELEMENT-IREF>
+                            <P-PORT-PROTOTYPE-REF DEST="R-PORT-PROTOTYPE">/DoorControlSystem/ComponentTypes/DoorControlSWC/DoorCommand_In</P-PORT-PROTOTYPE-REF>
+                            <PORT-ELEMENT-REF DEST="ELEMENT">/DoorControlSystem/Interfaces/DoorCommandInterface/DoorOpenCmd</PORT-ELEMENT-REF>
+                          </DATA-ELEMENT-IREF>
+                        </DATA-READ-ACCESS>
+                      </DATA-READ-ACCESSS>
+                      <DATA-WRITE-ACCESSS>
+                        <DATA-WRITE-ACCESS>
+                          <SHORT-NAME>WriteDoorStatus</SHORT-NAME>
+                          <DATA-ELEMENT-IREF>
+                            <P-PORT-PROTOTYPE-REF DEST="P-PORT-PROTOTYPE">/DoorControlSystem/ComponentTypes/DoorControlSWC/DoorStatus_Out</P-PORT-PROTOTYPE-REF>
+                            <PORT-ELEMENT-REF DEST="ELEMENT">/DoorControlSystem/Interfaces/DoorStatusInterface/DoorPosition</PORT-ELEMENT-REF>
+                          </DATA-ELEMENT-IREF>
+                        </DATA-WRITE-ACCESS>
+                      </DATA-WRITE-ACCESSS>
+                      <SERVER-PORT-IRF/>
+                    </RUNNABLE-ENTITY>
+                  </RUNNABLES>
+                </SWC-INTERNAL-BEHAVIOR>
+              </INTERNAL-BEHAVIORS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+            <APPLICATION-SW-COMPONENT-TYPE>
+              <SHORT-NAME>DiagnosticsSWC</SHORT-NAME>
+              <CATEGORY>APPLICATION_COMPONENT</CATEGORY>
+              <PORTS>
+                <R-PORT-PROTOTYPE>
+                  <SHORT-NAME>DoorStatus_In</SHORT-NAME>
+                  <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/DoorControlSystem/Interfaces/DoorStatusInterface</REQUIRED-INTERFACE-TREF>
+                </R-PORT-PROTOTYPE>
+                <P-PORT-PROTOTYPE>
+                  <SHORT-NAME>DiagResponse_Out</SHORT-NAME>
+                  <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/DoorControlSystem/Interfaces/DiagnosticInterface</PROVIDED-INTERFACE-TREF>
+                </P-PORT-PROTOTYPE>
+              </PORTS>
+              <INTERNAL-BEHAVIORS>
+                <SWC-INTERNAL-BEHAVIOR>
+                  <SHORT-NAME>DiagnosticsBehavior</SHORT-NAME>
+                  <ENABLE-OUT-OF-ORDER-DELIVERY>false</ENABLE-OUT-OF-ORDER-DELIVERY>
+                  <EVENTS>
+                    <TIMING-EVENT>
+                      <SHORT-NAME>Diagnostics_TE</SHORT-NAME>
+                      <DISABLE-OUT-OF-ORDER-DELIVERY-SUPPORT>true</DISABLE-OUT-OF-ORDER-DELIVERY-SUPPORT>
+                      <EVENT-CONTROLLED-TIMING>
+                        <NUMBER-OF-REPETITIONS>0</NUMBER-OF-REPETITIONS>
+                        <TIMING-EVENT-PROCESSING>CYCLIC</TIMING-EVENT-PROCESSING>
+                      </EVENT-CONTROLLED-TIMING>
+                      <PERIOD>0.05</PERIOD>
+                      <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/DoorControlSystem/ComponentTypes/DiagnosticsSWC/DiagnosticsBehavior/Diagnostics_Runnable</START-ON-EVENT-REF>
+                    </TIMING-EVENT>
+                  </EVENTS>
+                  <RUNNABLES>
+                    <RUNNABLE-ENTITY>
+                      <SHORT-NAME>Diagnostics_Runnable</SHORT-NAME>
+                      <CAN-BE-INVOKED-WITHOUT-HOLDING-LOCK>false</CAN-BE-INVOKED-WITHOUT-HOLDING-LOCK>
+                      <DATA-READ-ACCESSS/>
+                      <DATA-WRITE-ACCESSS/>
+                      <SERVER-PORT-IRF/>
+                    </RUNNABLE-ENTITY>
+                  </RUNNABLES>
+                </SWC-INTERNAL-BEHAVIOR>
+              </INTERNAL-BEHAVIORS>
+            </APPLICATION-SW-COMPONENT-TYPE>
+          </ELEMENTS>
+        </AR-PACKAGE>
+        <AR-PACKAGE>
+          <SHORT-NAME>Interfaces</SHORT-NAME>
+          <ELEMENTS>
+            <SENDER-RECEIVER-INTERFACE>
+              <SHORT-NAME>DoorCommandInterface</SHORT-NAME>
+              <IS-SERVICE>false</IS-SERVICE>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE>
+                  <SHORT-NAME>DoorOpenCmd</SHORT-NAME>
+                  <TYPE-TREF DEST="UINT8">/DoorControlSystem/DataTypes/DoorCommandType</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+                <VARIABLE-DATA-PROTOTYPE>
+                  <SHORT-NAME>DoorCloseCmd</SHORT-NAME>
+                  <TYPE-TREF DEST="UINT8">/DoorControlSystem/DataTypes/DoorCommandType</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+            <SENDER-RECEIVER-INTERFACE>
+              <SHORT-NAME>DoorStatusInterface</SHORT-NAME>
+              <IS-SERVICE>false</IS-SERVICE>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE>
+                  <SHORT-NAME>DoorPosition</SHORT-NAME>
+                  <TYPE-TREF DEST="UINT16">/DoorControlSystem/DataTypes/DoorPositionType</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+                <VARIABLE-DATA-PROTOTYPE>
+                  <SHORT-NAME>DoorStatus</SHORT-NAME>
+                  <TYPE-TREF DEST="UINT8">/DoorControlSystem/DataTypes/DoorStatusType</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+                <VARIABLE-DATA-PROTOTYPE>
+                  <SHORT-NAME>DoorError</SHORT-NAME>
+                  <TYPE-TREF DEST="UINT8">/DoorControlSystem/DataTypes/DoorErrorType</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+            <SENDER-RECEIVER-INTERFACE>
+              <SHORT-NAME>DoorSensorInterface</SHORT-NAME>
+              <IS-SERVICE>false</IS-SERVICE>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE>
+                  <SHORT-NAME>SensorPosition</SHORT-NAME>
+                  <TYPE-TREF DEST="UINT16">/DoorControlSystem/DataTypes/SensorPositionType</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+                <VARIABLE-DATA-PROTOTYPE>
+                  <SHORT-NAME>MotorCurrent</SHORT-NAME>
+                  <TYPE-TREF DEST="UINT16">/DoorControlSystem/DataTypes/CurrentType</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+            <SENDER-RECEIVER-INTERFACE>
+              <SHORT-NAME>DiagnosticInterface</SHORT-NAME>
+              <IS-SERVICE>false</IS-SERVICE>
+              <DATA-ELEMENTS>
+                <VARIABLE-DATA-PROTOTYPE>
+                  <SHORT-NAME>DIDValue</SHORT-NAME>
+                  <TYPE-TREF DEST="UINT32">/DoorControlSystem/DataTypes/DIDValueType</TYPE-TREF>
+                </VARIABLE-DATA-PROTOTYPE>
+              </DATA-ELEMENTS>
+            </SENDER-RECEIVER-INTERFACE>
+            <CLIENT-SERVER-INTERFACE>
+              <SHORT-NAME>MotorControlInterface</SHORT-NAME>
+              <IS-SERVICE>false</IS-SERVICE>
+              <OPERATIONS>
+                <OPERATION-PROTOTYPE>
+                  <SHORT-NAME>SetMotorSpeed</SHORT-NAME>
+                  <ARGUMENTS>
+                    <ARGUMENT-DATA-PROTOTYPE>
+                      <SHORT-NAME>Speed</SHORT-NAME>
+                      <TYPE-TREF DEST="SINT8">/DoorControlSystem/DataTypes/MotorSpeedType</TYPE-TREF>
+                    </ARGUMENT-DATA-PROTOTYPE>
+                  </ARGUMENTS>
+                  <VARIATION-POINT>
+                    <VARIATION-POINT-PROXY/>
+                  </VARIATION-POINT>
+                </OPERATION-PROTOTYPE>
+              </OPERATIONS>
+            </CLIENT-SERVER-INTERFACE>
+          </ELEMENTS>
+        </AR-PACKAGE>
+        <AR-PACKAGE>
+          <SHORT-NAME>CAN_Network</SHORT-NAME>
+          <ELEMENTS>
+            <CAN-CLUSTER>
+              <SHORT-NAME>CAN_Cluster</SHORT-NAME>
+              <BAUDRATE>500000</BAUDRATE>
+              <CAN-CLUSTER-CONDITIONAL>
+                <PHYSICAL-CHANNELS>
+                  <CAN-PHYSICAL-CHANNEL>
+                    <SHORT-NAME>CAN_Channel</SHORT-NAME>
+                    <FRAME-TRIGGERINGS>
+                      <CAN-FRAME-TRIGGERING>
+                        <SHORT-NAME>DoorCommand_FrameTriggering</SHORT-NAME>
+                        <FRAME-PORT-REFS/>
+                        <FRAME-REF DEST="CAN-FRAME">/DoorControlSystem/CAN_Network/DoorCommand_Frame</FRAME-REF>
+                        <IDENTIFIER>0x100</IDENTIFIER>
+                      </CAN-FRAME-TRIGGERING>
+                      <CAN-FRAME-TRIGGERING>
+                        <SHORT-NAME>DoorStatus_FrameTriggering</SHORT-NAME>
+                        <FRAME-PORT-REFS/>
+                        <FRAME-REF DEST="CAN-FRAME">/DoorControlSystem/CAN_Network/DoorStatus_Frame</FRAME-REF>
+                        <IDENTIFIER>0x101</IDENTIFIER>
+                      </CAN-FRAME-TRIGGERING>
+                      <CAN-FRAME-TRIGGERING>
+                        <SHORT-NAME>Diagnostics_FrameTriggering</SHORT-NAME>
+                        <FRAME-PORT-REFS/>
+                        <FRAME-REF DEST="CAN-FRAME">/DoorControlSystem/CAN_Network/Diagnostics_Frame</FRAME-REF>
+                        <IDENTIFIER>0x7D0</IDENTIFIER>
+                      </CAN-FRAME-TRIGGERING>
+                    </FRAME-TRIGGERINGS>
+                  </CAN-PHYSICAL-CHANNEL>
+                </PHYSICAL-CHANNELS>
+              </CAN-CLUSTER-CONDITIONAL>
+            </CAN-CLUSTER>
+            <CAN-FRAME>
+              <SHORT-NAME>DoorCommand_Frame</SHORT-NAME>
+              <FRAME-LENGTH>8</FRAME-LENGTH>
+              <PDU-TO-FRAME-MAPPINGS>
+                <PDU-TO-FRAME-MAPPING>
+                  <SHORT-NAME>DoorCommand_PDU_Mapping</SHORT-NAME>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <PDU-REF DEST="I-PDU">/DoorControlSystem/Communication/DoorCommand_PDU</PDU-REF>
+                  <START-POSITION>0</START-POSITION>
+                </PDU-TO-FRAME-MAPPING>
+              </PDU-TO-FRAME-MAPPINGS>
+            </CAN-FRAME>
+            <CAN-FRAME>
+              <SHORT-NAME>DoorStatus_Frame</SHORT-NAME>
+              <FRAME-LENGTH>8</FRAME-LENGTH>
+              <PDU-TO-FRAME-MAPPINGS>
+                <PDU-TO-FRAME-MAPPING>
+                  <SHORT-NAME>DoorStatus_PDU_Mapping</SHORT-NAME>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <PDU-REF DEST="I-PDU">/DoorControlSystem/Communication/DoorStatus_PDU</PDU-REF>
+                  <START-POSITION>0</START-POSITION>
+                </PDU-TO-FRAME-MAPPING>
+              </PDU-TO-FRAME-MAPPINGS>
+            </CAN-FRAME>
+            <CAN-FRAME>
+              <SHORT-NAME>Diagnostics_Frame</SHORT-NAME>
+              <FRAME-LENGTH>8</FRAME-LENGTH>
+              <PDU-TO-FRAME-MAPPINGS>
+                <PDU-TO-FRAME-MAPPING>
+                  <SHORT-NAME>Diagnostics_PDU_Mapping</SHORT-NAME>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <PDU-REF DEST="I-PDU">/DoorControlSystem/Communication/Diagnostics_PDU</PDU-REF>
+                  <START-POSITION>0</START-POSITION>
+                </PDU-TO-FRAME-MAPPING>
+              </PDU-TO-FRAME-MAPPINGS>
+            </CAN-FRAME>
+          </ELEMENTS>
+        </AR-PACKAGE>
+      </AR-PACKAGES>
+    </AR-PACKAGE>
+  </AR-PACKAGES>
+</AUTOSAR>

@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_4-3-1.xsd">
+  <AR-PACKAGES>
+    <AR-PACKAGE>
+      <SHORT-NAME>DoorControlSystem</SHORT-NAME>
+      <AR-PACKAGES>
+        <AR-PACKAGE>
+          <SHORT-NAME>Communication</SHORT-NAME>
+          <ELEMENTS>
+            <!-- DOOR COMMAND PDU -->
+            <I-PDU>
+              <SHORT-NAME>DoorCommand_PDU</SHORT-NAME>
+              <I-PDU-TIMING-SPECIFICATIONS>
+                <I-PDU-TIMING>
+                  <TX-MODE>
+                    <I-PDU-PORT>1</I-PDU-PORT>
+                    <TIMING-SPECIFICATION>
+                      <EVENT-CONTROLLED-TIMING>
+                        <NUMBER-OF-REPETITIONS>0</NUMBER-OF-REPETITIONS>
+                        <TIMING-EVENT-PROCESSING>CYCLIC</TIMING-EVENT-PROCESSING>
+                      </EVENT-CONTROLLED-TIMING>
+                    </TIMING-SPECIFICATION>
+                    <TRANSMISSION-MODE-CONDITIONS>
+                      <TRANSMISSION-MODE-CONDITION>
+                        <TRANSMISSION-MODE-TRUE-TIMING>
+                          <EVENT-CONTROLLED-TIMING>
+                            <NUMBER-OF-REPETITIONS>0</NUMBER-OF-REPETITIONS>
+                            <TIMING-EVENT-PROCESSING>CYCLIC</TIMING-EVENT-PROCESSING>
+                          </EVENT-CONTROLLED-TIMING>
+                        </TRANSMISSION-MODE-TRUE-TIMING>
+                      </TRANSMISSION-MODE-CONDITION>
+                    </TRANSMISSION-MODE-CONDITIONS>
+                  </TX-MODE>
+                </I-PDU-TIMING>
+              </I-PDU-TIMING-SPECIFICATIONS>
+              <LENGTH>8</LENGTH>
+              <I-PDU-TIMING-SPECIFICATIONS/>
+              <I-SIGNAL-TO-PDU-MAPPINGS>
+                <I-SIGNAL-TO-I-PDU-MAPPING>
+                  <SHORT-NAME>DoorOpenCmd_Mapping</SHORT-NAME>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <START-POSITION>0</START-POSITION>
+                  <I-SIGNAL-REF DEST="I-SIGNAL">/DoorControlSystem/Communication/Signals/DoorOpenCmd_Signal</I-SIGNAL-REF>
+                </I-SIGNAL-TO-I-PDU-MAPPING>
+                <I-SIGNAL-TO-I-PDU-MAPPING>
+                  <SHORT-NAME>DoorCloseCmd_Mapping</SHORT-NAME>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <START-POSITION>1</START-POSITION>
+                  <I-SIGNAL-REF DEST="I-SIGNAL">/DoorControlSystem/Communication/Signals/DoorCloseCmd_Signal</I-SIGNAL-REF>
+                </I-SIGNAL-TO-I-PDU-MAPPING>
+              </I-SIGNAL-TO-PDU-MAPPINGS>
+            </I-PDU>
+            <!-- DOOR STATUS PDU -->
+            <I-PDU>
+              <SHORT-NAME>DoorStatus_PDU</SHORT-NAME>
+              <I-PDU-TIMING-SPECIFICATIONS>
+                <I-PDU-TIMING>
+                  <TX-MODE>
+                    <I-PDU-PORT>1</I-PDU-PORT>
+                    <TIMING-SPECIFICATION>
+                      <EVENT-CONTROLLED-TIMING>
+                        <NUMBER-OF-REPETITIONS>0</NUMBER-OF-REPETITIONS>
+                        <TIMING-EVENT-PROCESSING>CYCLIC</TIMING-EVENT-PROCESSING>
+                      </EVENT-CONTROLLED-TIMING>
+                    </TIMING-SPECIFICATION>
+                  </TX-MODE>
+                </I-PDU-TIMING>
+              </I-PDU-TIMING-SPECIFICATIONS>
+              <LENGTH>8</LENGTH>
+              <I-SIGNAL-TO-PDU-MAPPINGS>
+                <I-SIGNAL-TO-I-PDU-MAPPING>
+                  <SHORT-NAME>DoorPosition_Mapping</SHORT-NAME>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <START-POSITION>0</START-POSITION>
+                  <I-SIGNAL-REF DEST="I-SIGNAL">/DoorControlSystem/Communication/Signals/DoorPosition_Signal</I-SIGNAL-REF>
+                </I-SIGNAL-TO-I-PDU-MAPPING>
+                <I-SIGNAL-TO-I-PDU-MAPPING>
+                  <SHORT-NAME>DoorMotorCurrent_Mapping</SHORT-NAME>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <START-POSITION>16</START-POSITION>
+                  <I-SIGNAL-REF DEST="I-SIGNAL">/DoorControlSystem/Communication/Signals/DoorMotorCurrent_Signal</I-SIGNAL-REF>
+                </I-SIGNAL-TO-I-PDU-MAPPING>
+                <I-SIGNAL-TO-I-PDU-MAPPING>
+                  <SHORT-NAME>DoorStatus_Mapping</SHORT-NAME>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <START-POSITION>32</START-POSITION>
+                  <I-SIGNAL-REF DEST="I-SIGNAL">/DoorControlSystem/Communication/Signals/DoorStatus_Signal</I-SIGNAL-REF>
+                </I-SIGNAL-TO-I-PDU-MAPPING>
+                <I-SIGNAL-TO-I-PDU-MAPPING>
+                  <SHORT-NAME>DoorError_Mapping</SHORT-NAME>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <START-POSITION>40</START-POSITION>
+                  <I-SIGNAL-REF DEST="I-SIGNAL">/DoorControlSystem/Communication/Signals/DoorError_Signal</I-SIGNAL-REF>
+                </I-SIGNAL-TO-I-PDU-MAPPING>
+              </I-SIGNAL-TO-PDU-MAPPINGS>
+            </I-PDU>
+            <!-- DIAGNOSTICS PDU (UDS Payload) -->
+            <I-PDU>
+              <SHORT-NAME>Diagnostics_PDU</SHORT-NAME>
+              <LENGTH>8</LENGTH>
+              <I-SIGNAL-TO-PDU-MAPPINGS>
+                <I-SIGNAL-TO-I-PDU-MAPPING>
+                  <SHORT-NAME>DiagService_Mapping</SHORT-NAME>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <START-POSITION>0</START-POSITION>
+                  <I-SIGNAL-REF DEST="I-SIGNAL">/DoorControlSystem/Communication/Signals/DiagService_Signal</I-SIGNAL-REF>
+                </I-SIGNAL-TO-I-PDU-MAPPING>
+              </I-SIGNAL-TO-PDU-MAPPINGS>
+            </I-PDU>
+          </ELEMENTS>
+          <AR-PACKAGES>
+            <AR-PACKAGE>
+              <SHORT-NAME>Signals</SHORT-NAME>
+              <ELEMENTS>
+                <!-- DOOR OPEN COMMAND SIGNAL -->
+                <I-SIGNAL>
+                  <SHORT-NAME>DoorOpenCmd_Signal</SHORT-NAME>
+                  <I-SIGNAL-TYPE>PRIMITIVE</I-SIGNAL-TYPE>
+                  <INIT-VALUE>
+                    <NUMERICAL-VALUE-SPECIFICATION>
+                      <VALUE>0</VALUE>
+                    </NUMERICAL-VALUE-SPECIFICATION>
+                  </INIT-VALUE>
+                  <LENGTH>1</LENGTH>
+                  <SYSTEM-SIGNAL-REF DEST="SYSTEM-SIGNAL">/DoorControlSystem/SystemSignals/DoorOpenCmd_SysSignal</SYSTEM-SIGNAL-REF>
+                </I-SIGNAL>
+                <!-- DOOR CLOSE COMMAND SIGNAL -->
+                <I-SIGNAL>
+                  <SHORT-NAME>DoorCloseCmd_Signal</SHORT-NAME>
+                  <I-SIGNAL-TYPE>PRIMITIVE</I-SIGNAL-TYPE>
+                  <INIT-VALUE>
+                    <NUMERICAL-VALUE-SPECIFICATION>
+                      <VALUE>0</VALUE>
+                    </NUMERICAL-VALUE-SPECIFICATION>
+                  </INIT-VALUE>
+                  <LENGTH>1</LENGTH>
+                  <SYSTEM-SIGNAL-REF DEST="SYSTEM-SIGNAL">/DoorControlSystem/SystemSignals/DoorCloseCmd_SysSignal</SYSTEM-SIGNAL-REF>
+                </I-SIGNAL>
+                <!-- DOOR POSITION FEEDBACK SIGNAL -->
+                <I-SIGNAL>
+                  <SHORT-NAME>DoorPosition_Signal</SHORT-NAME>
+                  <I-SIGNAL-TYPE>PRIMITIVE</I-SIGNAL-TYPE>
+                  <INIT-VALUE>
+                    <NUMERICAL-VALUE-SPECIFICATION>
+                      <VALUE>0</VALUE>
+                    </NUMERICAL-VALUE-SPECIFICATION>
+                  </INIT-VALUE>
+                  <LENGTH>16</LENGTH>
+                  <SYSTEM-SIGNAL-REF DEST="SYSTEM-SIGNAL">/DoorControlSystem/SystemSignals/DoorPosition_SysSignal</SYSTEM-SIGNAL-REF>
+                </I-SIGNAL>
+                <!-- MOTOR CURRENT FEEDBACK -->
+                <I-SIGNAL>
+                  <SHORT-NAME>DoorMotorCurrent_Signal</SHORT-NAME>
+                  <I-SIGNAL-TYPE>PRIMITIVE</I-SIGNAL-TYPE>
+                  <INIT-VALUE>
+                    <NUMERICAL-VALUE-SPECIFICATION>
+                      <VALUE>0</VALUE>
+                    </NUMERICAL-VALUE-SPECIFICATION>
+                  </INIT-VALUE>
+                  <LENGTH>16</LENGTH>
+                  <SYSTEM-SIGNAL-REF DEST="SYSTEM-SIGNAL">/DoorControlSystem/SystemSignals/DoorMotorCurrent_SysSignal</SYSTEM-SIGNAL-REF>
+                </I-SIGNAL>
+                <!-- DOOR STATUS SIGNAL -->
+                <I-SIGNAL>
+                  <SHORT-NAME>DoorStatus_Signal</SHORT-NAME>
+                  <I-SIGNAL-TYPE>PRIMITIVE</I-SIGNAL-TYPE>
+                  <INIT-VALUE>
+                    <NUMERICAL-VALUE-SPECIFICATION>
+                      <VALUE>0</VALUE>
+                    </NUMERICAL-VALUE-SPECIFICATION>
+                  </INIT-VALUE>
+                  <LENGTH>3</LENGTH>
+                  <SYSTEM-SIGNAL-REF DEST="SYSTEM-SIGNAL">/DoorControlSystem/SystemSignals/DoorStatus_SysSignal</SYSTEM-SIGNAL-REF>
+                </I-SIGNAL>
+                <!-- DOOR ERROR SIGNAL -->
+                <I-SIGNAL>
+                  <SHORT-NAME>DoorError_Signal</SHORT-NAME>
+                  <I-SIGNAL-TYPE>PRIMITIVE</I-SIGNAL-TYPE>
+                  <INIT-VALUE>
+                    <NUMERICAL-VALUE-SPECIFICATION>
+                      <VALUE>0</VALUE>
+                    </NUMERICAL-VALUE-SPECIFICATION>
+                  </INIT-VALUE>
+                  <LENGTH>8</LENGTH>
+                  <SYSTEM-SIGNAL-REF DEST="SYSTEM-SIGNAL">/DoorControlSystem/SystemSignals/DoorError_SysSignal</SYSTEM-SIGNAL-REF>
+                </I-SIGNAL>
+                <!-- DIAGNOSTIC SERVICE SIGNAL -->
+                <I-SIGNAL>
+                  <SHORT-NAME>DiagService_Signal</SHORT-NAME>
+                  <I-SIGNAL-TYPE>PRIMITIVE</I-SIGNAL-TYPE>
+                  <INIT-VALUE>
+                    <NUMERICAL-VALUE-SPECIFICATION>
+                      <VALUE>0</VALUE>
+                    </NUMERICAL-VALUE-SPECIFICATION>
+                  </INIT-VALUE>
+                  <LENGTH>8</LENGTH>
+                  <SYSTEM-SIGNAL-REF DEST="SYSTEM-SIGNAL">/DoorControlSystem/SystemSignals/DiagService_SysSignal</SYSTEM-SIGNAL-REF>
+                </I-SIGNAL>
+              </ELEMENTS>
+            </AR-PACKAGE>
+          </AR-PACKAGES>
+        </AR-PACKAGE>
+        <AR-PACKAGE>
+          <SHORT-NAME>SystemSignals</SHORT-NAME>
+          <ELEMENTS>
+            <SYSTEM-SIGNAL>
+              <SHORT-NAME>DoorOpenCmd_SysSignal</SHORT-NAME>
+            </SYSTEM-SIGNAL>
+            <SYSTEM-SIGNAL>
+              <SHORT-NAME>DoorCloseCmd_SysSignal</SHORT-NAME>
+            </SYSTEM-SIGNAL>
+            <SYSTEM-SIGNAL>
+              <SHORT-NAME>DoorPosition_SysSignal</SHORT-NAME>
+            </SYSTEM-SIGNAL>
+            <SYSTEM-SIGNAL>
+              <SHORT-NAME>DoorMotorCurrent_SysSignal</SHORT-NAME>
+            </SYSTEM-SIGNAL>
+            <SYSTEM-SIGNAL>
+              <SHORT-NAME>DoorStatus_SysSignal</SHORT-NAME>
+            </SYSTEM-SIGNAL>
+            <SYSTEM-SIGNAL>
+              <SHORT-NAME>DoorError_SysSignal</SHORT-NAME>
+            </SYSTEM-SIGNAL>
+            <SYSTEM-SIGNAL>
+              <SHORT-NAME>DiagService_SysSignal</SHORT-NAME>
+            </SYSTEM-SIGNAL>
+          </ELEMENTS>
+        </AR-PACKAGE>
+      </AR-PACKAGES>
+    </AR-PACKAGE>
+  </AR-PACKAGES>
+</AUTOSAR>
